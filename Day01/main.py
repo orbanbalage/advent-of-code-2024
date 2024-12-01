@@ -59,11 +59,28 @@ for line in lines:
     print(total_diff)
 
 
+def calculate_similarity_score(list1, list2):
+	
+	list2_dict = {}
+
+	for num in list2:
+		if num not in list2_dict:
+			list2_dict[num] = 1
+		else:
+			list2_dict[num] += 1
+	
+	test_similarity_score = 0
+	
+	for num in list1:
+		if num in list2_dict:
+			test_similarity_score += int(num) * int(list2_dict[num])
+	return test_similarity_score
+
 #let's turn this into a function
 #so zipping two lists won't be needed...
 #I'm an idiot, forgot to sort the lists...
 
-def calculate_total_distance_between_lists(puzzle_input):
+def calculate_total_distance_between_lists_and_similarity(puzzle_input):
 	lines = puzzle_input.splitlines()
 	#lines.remove("")
 
@@ -78,10 +95,10 @@ def calculate_total_distance_between_lists(puzzle_input):
 	#return total_diff
 	list1.sort()
 	list2.sort()
-	return zip_and_sum_diffs(list1, list2)
+	return zip_and_sum_diffs(list1, list2),calculate_similarity_score(list1, list2)
 
 #test with our sample data
-test_result2 = calculate_total_distance_between_lists(sample_input)
+test_result2 = calculate_total_distance_between_lists_and_similarity(sample_input)
 print(test_result2) #should be around 92k
 
 #open the sample input from file and calculate the result
@@ -95,7 +112,7 @@ print(sample_file_content)
 
 #do the thing:
 print("Sample result reading - result should be 11", sample_file)
-sample_final_result = calculate_total_distance_between_lists(sample_file_content)
+sample_final_result = calculate_total_distance_between_lists_and_similarity(sample_file_content)
 print(sample_final_result) #11?
 
 
@@ -112,5 +129,42 @@ file.close()
 
 #do the thing:
 print("Final result reading ", file)
-final_result = calculate_total_distance_between_lists(file_content)
+final_result = calculate_total_distance_between_lists_and_similarity(file_content)
 print(final_result)
+
+
+
+######### PART 2 ############
+
+#calculate similarity score
+#list1/2 = 31
+
+#let's build list2 dictionary first
+
+list2_dict = {}
+for num in list2:
+	#print(num)
+	if num not in list2_dict:
+		list2_dict[num] = 1
+	else:
+		list2_dict[num] += 1
+
+print(list2_dict)
+
+test_similarity_score = 0
+
+for num in list1:
+	#print("Processing num:", num)
+	if num in list2_dict:
+		#print("sim score before: ", test_similarity_score)
+		test_similarity_score += num * list2_dict[num]
+		#print("sim score after: ", test_similarity_score)
+
+print("Test Similarity Score - should be 31:")
+print(test_similarity_score) #31
+
+
+## make it into a function and run on SAMPLE FILE ##
+
+# move function before other function definition, this isn't JS...
+
