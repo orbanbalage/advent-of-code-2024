@@ -74,8 +74,26 @@ for x in range(0, input_height):
 		if(y + 3 < input_width and input_arr[x][y] == "X" and input_arr[x][y+1] == "M" and input_arr[x][y+2] == "A" and input_arr[x][y+3] == "S"):
 			xmas_count += 1	##201. regex says 212. hmm... ///OK FIXXED! //also for one line sample, it's 5.
 # 9PM:
-		#if(x > 2 and input_arr[x][y] == "X" and input_arr[x][y] == "M" and input_arr[x+2][y] == "A" and input_arr[x+3][y] == "S"):
-
+		if(y >= 3 and input_arr[x][y] == "X" and input_arr[x][y-1] == "M" and input_arr[x][y-2] == "A" and input_arr[x][y-3] == "S"):
+			xmas_count += 1	## ? //for one line sample = 2 VERIFIED.
+# 6PM:
+		if(x + 3 < input_height and input_arr[x][y] == "X" and input_arr[x+1][y] == "M" and input_arr[x+2][y] == "A" and input_arr[x+3][y] == "S"):
+			xmas_count += 1
+#12PM:
+		if(x >= 3 and input_arr[x][y] == "X" and input_arr[x-1][y] == "M" and input_arr[x-2][y] == "A" and input_arr[x-3][y] == "S"):
+			xmas_count += 1
+#4,5PM:
+		if(x + 3 < input_height and y + 3 <= input_width and input_arr[x][y] == "X" and input_arr[x+1][y+1] == "M" and input_arr[x+2][y+2] == "A" and input_arr[x+3][y+3] == "S"):
+			xmas_count += 1
+#10,5PM:
+		if(y >= 3 and x >= 3 and input_arr[x][y] == "X" and input_arr[x-1][y-1] == "M" and input_arr[x-2][y-2] == "A" and input_arr[x-3][y-3] == "S"):
+			xmas_count += 1
+#7,5PM:
+		if(x + 3 < input_height and y >= 3 and input_arr[x][y] == "X" and input_arr[x+1][y-1] == "M" and input_arr[x+2][y-2] == "A" and input_arr[x+3][y-3] == "S"):
+			xmas_count += 1
+#1,5PM:
+		if(x >= 3 and y + 3 < input_width and input_arr[x][y] == "X" and input_arr[x-1][y+1] == "M" and input_arr[x-2][y+2] == "A" and input_arr[x-3][y+3] == "S"):
+			xmas_count += 1
 
 
 print(xmas_count)
