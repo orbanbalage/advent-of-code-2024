@@ -27,11 +27,23 @@ rules = """47|53
 
 rules_arr = []
 
-for line in rules.split("\n"):
+#for line in rules.split("\n"):
+#    #print(line.split("|"))
+#    rules_arr.append(line.split("|"))
+#
+##print(rules_arr)
+
+with open("input_rules.txt") as file:
+    rules_text = file.read()
+
+for line in rules_text.split("\n"):
     #print(line.split("|"))
     rules_arr.append(line.split("|"))
 
 #print(rules_arr)
+#print(len(rules_arr)) #1177
+rules_target = len(rules_arr) - 1
+
 
 pages = """75,47,61,53,29
 97,61,53,29,13
@@ -42,12 +54,25 @@ pages = """75,47,61,53,29
 
 pages_arr = []
 
-for line in pages.split("\n"):
+#for line in pages.split("\n"):
+#    #print(line.split(","))
+#    pages_arr.append(line.split(","))
+#
+##print(pages_arr)
+
+
+with open("input_pages.txt") as file:
+    pages_text = file.read()
+
+for line in pages_text.split("\n"):
     #print(line.split(","))
     pages_arr.append(line.split(","))
 
 #print(pages_arr)
 
+
+
+################
 rule = [75,13]
 page = [75,29,13]
 
@@ -62,13 +87,16 @@ page_dict = convert(page)
 #print(page_dict)
 
 def apply_rule(rule, page_dict):
-   # if(page_dict[rule[0]] == 
-   a = page_dict.get(rule[0], True)
-   b = page_dict.get(rule[1], True)
-   if(b < a):
-       return False
-   else:
-       return True
+   # if(page_dict[rule[0]] ==
+   if(len(rule) > 1):
+       a = page_dict.get(rule[0], True)
+       b = page_dict.get(rule[1], True)
+       if(a == True or b == True):
+           return True
+       elif(b < a):
+           return False
+       else:
+           return True
 
 
 #print(apply_rule(rule, page_dict)) #True
@@ -84,5 +112,35 @@ def sum_middle_page_nums(correct_pages):
         total += int(page[math.ceil(len(page)/2)-1])
     return total
 
-print(sum_middle_page_nums(pages_arr))
-        
+#print(sum_middle_page_nums(pages_arr))
+
+correct_pages = []
+
+for page in pages_arr:
+    page_len = len(page)
+    if(page_len > 1):
+        page_dict = convert(page)
+        i = 0
+        rules_applied = 0
+        for rule in rules_arr:
+            rule_len = len(rule)
+            if(rule_len > 1):
+                applied_rule = apply_rule(rule, page_dict)
+                #print(page, rule)
+                #print(i, applied_rule)
+                #print(applied_rule)
+                i += 1
+                if(applied_rule):
+                    rules_applied += 1
+                else:
+                    print(page, rule)
+                    print(i, applied_rule)
+        print(rules_applied) #1083 is max, should be 1176
+        if(rules_applied == rules_target):
+            print(page)
+            correct_pages.append(page)
+
+
+final_result = sum_middle_page_nums(correct_pages)
+print(final_result)
+
