@@ -162,8 +162,5 @@ cython_debug/
 #.idea/
 
 #AoC input files
-input
-input.txt
-sample_input
+*input*
 .python-version
-input.bkp
