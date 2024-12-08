@@ -1,4 +1,6 @@
 head -n 1176 input.txt > input_rules.txt
-wc -l input.txt
-echo $((1369-1176)
-tail -n 192 input.txt > input_pages.txt
+total=$(wc -l input.txt | cut -d' ' -f1)
+echo $total
+lines=$((($total)-1176))
+echo $lines
+tail -n $lines input.txt > input_pages.txt
